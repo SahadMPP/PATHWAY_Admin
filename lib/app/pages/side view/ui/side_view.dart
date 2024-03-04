@@ -20,7 +20,7 @@ class SideBord extends StatelessWidget {
         vertical: defaultPadding * 3,
       ),
       decoration: const BoxDecoration(
-        color: primaryColor,
+        color: secondaryColor,
         borderRadius: BorderRadius.all(Radius.circular(30)),
       ),
       child: SingleChildScrollView(

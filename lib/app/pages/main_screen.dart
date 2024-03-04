@@ -10,11 +10,15 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Row(
-        children: [
-          Expanded(flex:2,child:SideBord(height: height)),
-          Expanded(flex:6,child: Dashboard(height: height))
-        ],
+      backgroundColor: Colors.grey[250],
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            Expanded(flex:2,child:SideBord(height: height)),
+            Expanded(flex:6,child: Dashboard(height: height))
+          ],
+        ),
       ),
     );
   }
