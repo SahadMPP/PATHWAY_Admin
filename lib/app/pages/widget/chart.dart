@@ -16,24 +16,19 @@ class AdminChart extends StatelessWidget {
         vertical: defaultPadding,
       ),
       decoration: BoxDecoration(
-          color: secondarybgColor,
-          borderRadius:
-              BorderRadius.circular(10)),
+          color: secondarybgColor, borderRadius: BorderRadius.circular(10)),
       child: SizedBox(
         child: SfCartesianChart(
           onDataLabelRender: (args) {
-            int index = args.dataPoints;
-            List<CartesianChartPoint<dynamic>>
-                dataPoint = args.dataPoints;
-            if (dataPoint[index].y == 2300) {
-              args.text =
-                  "2,320.00 USD\n Nov,7";
-                  args.textStyle = const TextStyle(
-                    fontSize: 8,color: Colors.black
-                  );
+            int index = args
+                .pointIndex; // Use args.pointIndex instead of args.dataPoints
+            List<ChartPoint<String>> dataPoints = args.dataPoints;
+            if (dataPoints[index].y == 2300) {
+              args.text = "2,320.00 USD\n Nov,7";
+              args.textStyle =
+                  const TextStyle(fontSize: 8, color: Colors.black);
               args.offset = const Offset(0, 20);
-            }
-            if (dataPoint[index].y != 2300) {
+            } else {
               args.text = "";
               args.offset = const Offset(0, 20);
             }
@@ -44,27 +39,19 @@ class AdminChart extends StatelessWidget {
               markerArgs.markerWidth = 0;
             }
           },
-          plotAreaBackgroundColor:
-              Colors.transparent,
+          plotAreaBackgroundColor: Colors.transparent,
           margin: const EdgeInsets.all(0),
           backgroundColor: Colors.transparent,
           borderWidth: 0,
           plotAreaBorderWidth: 0,
           primaryXAxis: const CategoryAxis(
-              labelAlignment:
-                  LabelAlignment.center,
-              labelPlacement:
-                  LabelPlacement.onTicks,
-              labelPosition:
-                  ChartDataLabelPosition
-                      .outside,
+              labelAlignment: LabelAlignment.center,
+              labelPlacement: LabelPlacement.onTicks,
+              labelPosition: ChartDataLabelPosition.outside,
               axisLine: AxisLine(width: 0),
-              majorGridLines:
-                  MajorGridLines(width: 0),
-              majorTickLines:
-                  MajorTickLines(width: 0),
-              edgeLabelPlacement:
-                  EdgeLabelPlacement.shift,
+              majorGridLines: MajorGridLines(width: 0),
+              majorTickLines: MajorTickLines(width: 0),
+              edgeLabelPlacement: EdgeLabelPlacement.shift,
               plotOffset: 5,
               labelsExtent: 30,
               interval: 3,
@@ -87,22 +74,13 @@ class AdminChart extends StatelessWidget {
             maximum: 2500,
             interval: 500,
           ),
-          series: <CartesianSeries<
-              ChartAreaData, String>>[
+          series: <CartesianSeries<ChartAreaData, String>>[
             SplineAreaSeries(
               dataSource: chartData,
-              xValueMapper:
-                  (ChartAreaData data, _) =>
-                      data.month,
-              yValueMapper:
-                  (ChartAreaData data, _) =>
-                      data.amount,
+              xValueMapper: (ChartAreaData data, _) => data.month,
+              yValueMapper: (ChartAreaData data, _) => data.amount,
               gradient: LinearGradient(
-                  colors: [
-                    splineColor,
-                    secondaryColor
-                        .withAlpha(150)
-                  ],
+                  colors: [splineColor, secondaryColor.withAlpha(150)],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter),
             ),
@@ -110,24 +88,14 @@ class AdminChart extends StatelessWidget {
               color: splineColor,
               width: 2,
               dataSource: chartData,
-              markerSettings:
-                  const MarkerSettings(
-                      isVisible: true,
-                      color: primaryColor,
-                      borderColor:
-                          Colors.white),
-              dataLabelSettings:
-                  const DataLabelSettings(
-                      isVisible: true,
-                      labelAlignment:
-                          ChartDataLabelAlignment
-                              .top),
-              xValueMapper:
-                  (ChartAreaData data, _) =>
-                      data.month,
-              yValueMapper:
-                  (ChartAreaData data, _) =>
-                      data.amount,
+              markerSettings: const MarkerSettings(
+                  isVisible: true,
+                  color: primaryColor,
+                  borderColor: Colors.white),
+              dataLabelSettings: const DataLabelSettings(
+                  isVisible: true, labelAlignment: ChartDataLabelAlignment.top),
+              xValueMapper: (ChartAreaData data, _) => data.month,
+              yValueMapper: (ChartAreaData data, _) => data.amount,
             )
           ],
         ),

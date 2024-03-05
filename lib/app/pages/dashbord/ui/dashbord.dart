@@ -6,17 +6,15 @@ import 'package:percent_indicator/percent_indicator.dart';
 class Dashboard extends StatelessWidget {
   const Dashboard({
     super.key,
-    required this.height,
   });
 
-  final double height;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       flex: 6,
       child: SizedBox(
-        height: height,
+        height: MediaQuery.of(context).size.height,
         child: Column(children: [
           Expanded(
             flex: 7,
@@ -26,7 +24,9 @@ class Dashboard extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(30)),
               ),
               child: Column(children: [
-                const Header(),
+                const Header(
+                  heddigText: 'Report',
+                ),
                 Expanded(
                   flex: 9,
                   child: Container(
@@ -424,8 +424,9 @@ class Presentage extends StatelessWidget {
 }
 
 class Header extends StatelessWidget {
+  final String heddigText;
   const Header({
-    super.key,
+    super.key, required this.heddigText,
   });
 
   @override
@@ -441,7 +442,7 @@ class Header extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Report",
+              heddigText,
               style: Theme.of(context)
                   .textTheme
                   .titleLarge!

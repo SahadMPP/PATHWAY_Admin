@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class SideBarCondent extends StatelessWidget {
+  final bool isSelected;
+  final int selectedIndex;
+  final int index;
   final VoidCallback function;
   final String text;
   final IconData icon;
@@ -8,7 +11,7 @@ class SideBarCondent extends StatelessWidget {
     super.key,
     required this.function,
     required this.text,
-    required this.icon,
+    required this.icon, required this.isSelected, required this.selectedIndex, required this.index,
   });
 
   @override
@@ -18,13 +21,12 @@ class SideBarCondent extends StatelessWidget {
       child: SizedBox(
         height: 40,
         width: double.infinity,
-        // color: const Color.fromARGB(255, 90, 75, 226),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Icon(icon, color: Colors.white),
+            Icon(icon, color: isSelected && selectedIndex == index ? Colors.white : Colors.black),
             const SizedBox(width: 15),
-            Text(text, style: const TextStyle(color: Colors.white)),
+            Text(text, style:  TextStyle( color: isSelected && selectedIndex == index ? Colors.white : Colors.black)),
           ],
         ),
       ),
