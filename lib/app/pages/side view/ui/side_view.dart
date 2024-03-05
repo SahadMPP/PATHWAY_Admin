@@ -71,7 +71,7 @@ class _SideBordState extends State<SideBord> {
                             selectedIndex = index;
                             isSelected = !isSelected;
                             selectedIndexMain = selectedIndex;
-                            print(selectedIndexMain);
+                          
 
                           });
                         },

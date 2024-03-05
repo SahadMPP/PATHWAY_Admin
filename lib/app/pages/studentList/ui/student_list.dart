@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pathway_admin/app/data/middleware/admin_api.dart';
+import 'package:pathway_admin/app/data/models/student.dart';
 import 'package:pathway_admin/app/pages/dashbord/ui/dashbord.dart';
 
 class StudentList extends StatefulWidget {
@@ -11,7 +13,6 @@ class StudentList extends StatefulWidget {
 class _StudentListState extends State<StudentList> {
   @override
   Widget build(BuildContext context) {
-    bool isActive = true;
     var titles = const TextStyle(
         color: Colors.grey, fontWeight: FontWeight.w400, fontSize: 12);
     var titlesvalue = const TextStyle(
@@ -73,95 +74,123 @@ class _StudentListState extends State<StudentList> {
           ),
           const SizedBox(height: 25),
           Expanded(
-            child: ListView.builder(
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding:
-                      const EdgeInsets.only(right: 20, left: 20, bottom: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SizedBox(
-                        width: 150,
-                        child: Row(
-                          children: [
-                            SizedBox(width: 25, child: Text('${index + 1}')),
-                            const SizedBox(width: 5),
-                            const CircleAvatar(
-                              radius: 16,
+            child: FutureBuilder(
+                future: AdminApi.getStudents(),
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else {
+                    List<Student> student = snapshot.data;
+                    if (student.isEmpty) {
+                      return const Center(child: Text("List is empty"));
+                    } else {
+                      return ListView.builder(
+                        itemCount: student.length,
+                        itemBuilder: (context, index) {
+                          bool isActive = student[index].active;
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                                right: 20, left: 20, bottom: 15),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                SizedBox(
+                                  width: 150,
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                          width: 25,
+                                          child: Text('${index + 1}')),
+                                      const SizedBox(width: 5),
+                                      const CircleAvatar(
+                                        radius: 16,
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Text(student[index].name,
+                                          style: titles.copyWith(
+                                              color: const Color.fromARGB(
+                                                  158, 33, 149, 243))),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                    width: 100,
+                                    child: Text(student[index].mobNumber!,
+                                        style: titlesvalue)),
+                                SizedBox(
+                                    width: 120,
+                                    child: Text(student[index].email,
+                                        style: titlesvalue)),
+                                const SizedBox(width: 10),
+                                SizedBox(
+                                  width: 50,
+                                  child: Container(
+                                    height: 20,
+                                    width: 15,
+                                    decoration: BoxDecoration(
+                                        color: isActive
+                                            ? Colors.green[200]
+                                            : Colors.red[200],
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(
+                                            width: .5,
+                                            color: const Color.fromARGB(
+                                                255, 24, 128, 27))),
+                                    child: Center(
+                                      child: isActive
+                                          ? Text("Active",
+                                              style: titlesvalue.copyWith(
+                                                  fontSize: 8,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.white))
+                                          : Text("DeActive",
+                                              style: titlesvalue.copyWith(
+                                                  fontSize: 8,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.white)),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 30),
+                                SizedBox(
+                                    width: 125,
+                                    child: Text('${student[index].lessonId!.length}',
+                                        style: titlesvalue,
+                                        textAlign: TextAlign.center)),
+                                SizedBox(
+                                    width: 60,
+                                    child: Text("\u{20B9}${student[index].orderValue}",
+                                        style: titlesvalue,
+                                        textAlign: TextAlign.right)),
+                                Container(
+                                    width: 100,
+                                    alignment: Alignment.centerRight,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          if (isActive) {
+                                            isActive = false;
+                                          } else {
+                                            isActive = true;
+                                          }
+                                        });
+                                      },
+                                      child: Icon(
+                                        Icons.person_add_disabled,
+                                        color: isActive
+                                            ? Colors.black
+                                            : const Color.fromARGB(
+                                                255, 255, 17, 0),
+                                      ),
+                                    ))
+                              ],
                             ),
-                            const SizedBox(width: 10),
-                            Text("Arun Kumar",
-                                style: titles.copyWith(
-                                    color: const Color.fromARGB(
-                                        158, 33, 149, 243))),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                          width: 100,
-                          child: Text("1234567809", style: titlesvalue)),
-                      SizedBox(
-                          width: 120,
-                          child: Text("Arunki@gmail.com", style: titlesvalue)),
-                      const SizedBox(width: 10),
-                      SizedBox(
-                        width: 50,
-                        child: Container(
-                          height: 20,
-                          width: 15,
-                          decoration: BoxDecoration(
-                              color: isActive ? Colors.green[200]:Colors.red[200],
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(
-                                  width: .5,
-                                  color:
-                                      const Color.fromARGB(255, 24, 128, 27))),
-                          child: Center(
-                            child:isActive ? Text("Active",
-                                style: titlesvalue.copyWith(
-                                    fontSize: 8,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white)) :  Text("DeActive",
-                                style: titlesvalue.copyWith(
-                                    fontSize: 8,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white)),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 30),
-                      SizedBox(
-                          width: 125,
-                          child: Text("${index + 1}",
-                              style: titlesvalue, textAlign: TextAlign.center)),
-                      SizedBox(
-                          width: 60,
-                          child: Text("\$387",
-                              style: titlesvalue, textAlign: TextAlign.right)),
-                      Container(
-                          width: 100,
-                          alignment: Alignment.centerRight,
-                          child: GestureDetector(
-                            onTap: (){
-                              setState(() {
-                                if (isActive) {
-                                  isActive = false;
-                                } else {
-                                  isActive = true;                     
-                                }
-                              });
-                            },
-                            child: Icon(
-                              Icons.person_add_disabled,
-                              color: isActive ? Colors.black : const Color.fromARGB(255, 255, 17, 0),
-                            ),
-                          ))
-                    ],
-                  ),
-                );
-              },
-            ),
+                          );
+                        },
+                      );
+                    }
+                  }
+                }),
           )
         ],
       ),

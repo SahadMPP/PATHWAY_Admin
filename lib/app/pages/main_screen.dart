@@ -8,7 +8,7 @@ import 'package:pathway_admin/app/pages/side%20view/ui/side_view.dart';
 import 'package:pathway_admin/app/pages/studentList/ui/student_list.dart';
 import 'package:pathway_admin/app/pages/teacherList/ui/teacher_list.dart';
 
-int selectedIndexMain = 0;
+int selectedIndexMain = 2;
   List<Widget> pages =[
     const Dashboard(),
     const StudentList(),
