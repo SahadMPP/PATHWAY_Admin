@@ -6,13 +6,15 @@ import 'package:pathway_admin/app/pages/requestList/ui/requestlist.dart';
 import 'package:pathway_admin/app/pages/settings/setting_ui.dart';
 import 'package:pathway_admin/app/pages/side%20view/ui/side_view.dart';
 import 'package:pathway_admin/app/pages/studentList/ui/student_list.dart';
+import 'package:pathway_admin/app/pages/subjects/ui/subject.dart';
 import 'package:pathway_admin/app/pages/teacherList/ui/teacher_list.dart';
 
-int selectedIndexMain = 2;
+int selectedIndexMain = 3;
   List<Widget> pages =[
     const Dashboard(),
     const StudentList(),
     const TeacherList(),
+    const SubjectList(),
     const RequestList(),
     const ComplaintList(),
     const Settings(),

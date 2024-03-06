@@ -61,7 +61,7 @@ class Dashboard extends StatelessWidget {
                                                 color: secondaryColor,
                                                 fontWeight: FontWeight.bold)),
                                     const SizedBox(height: 15),
-                                    // const AdminChart()
+                                    const AdminChart()
                                   ],
                                 ),
                               ),

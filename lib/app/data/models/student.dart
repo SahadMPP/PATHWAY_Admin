@@ -6,7 +6,7 @@ class Student {
   final String email;
   final String password;
   final String? mobNumber;
-  final String? orderValue;
+  final int? orderValue;
   final List<String>? lessonId;
   final bool active;
   final String level;
@@ -28,7 +28,7 @@ class Student {
 
   factory Student.fromJson(Map<String, dynamic> json) {
     return Student(
-      orderValue: json['orderValue'],
+      orderValue: json['orderValue'] ?? '',
       id: json['_id'] ?? '',
       name: json['name'] ?? '',
       age: json['age'] ?? '',

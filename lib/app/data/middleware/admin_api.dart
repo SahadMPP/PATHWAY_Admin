@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:pathway_admin/app/core/snacbar/snacbar.dart';
 import 'package:pathway_admin/app/data/models/complaint.dart';
 import 'package:pathway_admin/app/data/models/student.dart';
+import 'package:pathway_admin/app/data/models/subject.dart';
 import 'package:pathway_admin/app/data/models/teacher.dart';
 
 class AdminApi {
@@ -188,4 +189,29 @@ class AdminApi {
       debugPrint(e.toString());
     }
   }
+
+  static getSubject() async {
+    List<Subject> subject = [];
+    final url = Uri.parse("${baseUrl}get_subject");
+
+    try {
+      final res = await http.get(
+        url,
+      );
+      if (res.statusCode == 200) {
+        var data = jsonDecode(res.body);
+        for (var value in data) {
+          subject.add(Subject.fromJson(value));
+        }
+        return subject;
+      } else {
+        return subject;
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+
+  
 }
