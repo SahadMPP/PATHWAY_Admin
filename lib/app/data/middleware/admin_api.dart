@@ -13,7 +13,7 @@ import 'package:pathway_admin/app/data/models/teacher.dart';
 
 class AdminApi {
   // api for tutorial
-  static const baseUrl = "http://localhost:5000/api/";
+  static const baseUrl = "http://learnpro.today:5000/api/";
 
   // api for Complaits
 

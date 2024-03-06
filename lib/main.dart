@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pathway_admin/app/pages/main_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pathway_admin/app/pages/login/ui/login.dart';
+import 'package:pathway_admin/app/pages/side%20view/bloc/sideview_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,9 +12,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MainScreen(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => SideviewBloc(),)
+      ],
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: LoginScreen(),
+      ),
     );
   }
 }

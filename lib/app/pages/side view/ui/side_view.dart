@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pathway_admin/app/core/colors/colors.dart';
-import 'package:pathway_admin/app/pages/main_screen.dart';
+import 'package:pathway_admin/app/pages/side%20view/bloc/sideview_bloc.dart';
 import 'package:pathway_admin/app/pages/widget/side_bar.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SideBord extends StatefulWidget {
   const SideBord({
@@ -20,6 +21,7 @@ class _SideBordState extends State<SideBord> {
     {"icons": Icons.dashboard_outlined, "title": "Dashboard"},
     {"icons": Icons.person_outline, "title": "Students"},
     {"icons": Icons.person_2_outlined, "title": "Teachers"},
+    {"icons": Icons.subject, "title": "Subjects"},
     {"icons": Icons.event_note_outlined, "title": "Requests"},
     {"icons": Icons.note_outlined, "title": "Complaint"},
     {"icons": Icons.settings_outlined, "title": "Setting"},
@@ -56,27 +58,26 @@ class _SideBordState extends State<SideBord> {
             ),
             const SizedBox(height: 10),
             SizedBox(
-              height: 270,
+              height: 290,
               child: ListView.builder(
-                itemCount: 5,
+                itemCount: 6,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 10),
-                    child: SideBarCondent(
-                        index: index,
-                        selectedIndex: selectedIndex,
-                        isSelected: isSelected,
-                        function: () {
-                          setState(() {
-                            selectedIndex = index;
-                            isSelected = !isSelected;
-                            selectedIndexMain = selectedIndex;
-                          
-
-                          });
-                        },
-                        text: items[index]['title'],
-                        icon: items[index]['icons']),
+                    child: BlocBuilder<SideviewBloc, SideviewState>(
+                      builder: (context, state) {
+                        return SideBarCondent(
+                            index: index,
+                            selectedIndex: state.selectedIndex,
+                            isSelected: state.isSelected,
+                            function: () {
+                              context.read<SideviewBloc>().add(
+                                  SideviewEvent.selectionSection(index: index));
+                            },
+                            text: items[index]['title'],
+                            icon: items[index]['icons']);
+                      },
+                    ),
                   );
                 },
               ),
@@ -95,19 +96,22 @@ class _SideBordState extends State<SideBord> {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 10),
-                    child: SideBarCondent(
-                        index: index + 5,
-                        selectedIndex: selectedIndex,
-                        isSelected: isSelected,
-                        function: () {
-                          setState(() {
-                            selectedIndex = index + 5;
-                            isSelected = !isSelected;
-                            selectedIndexMain = selectedIndex;
-                          });
-                        },
-                        text: items[index + 5]['title'],
-                        icon: items[index + 5]['icons']),
+                    child: BlocBuilder<SideviewBloc, SideviewState>(
+                      builder: (context, state) {
+                        return SideBarCondent(
+                            index: index + 5,
+                            selectedIndex: state.selectedIndex,
+                            isSelected: state.isSelected,
+                            function: () {
+                              setState(() {  
+                                 context.read<SideviewBloc>().add(
+                                  SideviewEvent.selectionSection(index: index+5));
+                              });
+                            },
+                            text: items[index + 6]['title'],
+                            icon: items[index + 6]['icons']);
+                      },
+                    ),
                   );
                 },
               ),

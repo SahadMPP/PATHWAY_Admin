@@ -81,8 +81,8 @@ class TutorsApplicationDetile extends StatelessWidget {
                   width: 100,
                   color: Colors.red,
                  ),
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     "chief administrative officer signature",
                     style: TextStyle(
                       fontSize: 20,
@@ -90,7 +90,7 @@ class TutorsApplicationDetile extends StatelessWidget {
                       color: Color.fromARGB(255, 202, 202, 202),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   // Container(
                   //   height: 150,
                   //   width: double.infinity,
@@ -101,7 +101,7 @@ class TutorsApplicationDetile extends StatelessWidget {
                   //           image: MemoryImage(decodedSignature),
                   //           fit: BoxFit.cover),
                   // ),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                 ],
               ),
             ),
