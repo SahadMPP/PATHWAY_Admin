@@ -59,16 +59,30 @@ class _StudentListState extends State<StudentList> {
           Padding(
             padding: const EdgeInsets.only(right: 20, left: 20),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const SizedBox(width: 10),
-                Text("Name", style: titles),
-                Text("Mobile", style: titles),
-                Text("Email", style: titles),
-                Text("Status", style: titles),
-                Text("Course Count", style: titles),
-                Text("spent", style: titles),
-                Text("Change", style: titles),
+                Expanded(
+                    flex: 2,
+                    child: SizedBox(
+                        height: 30, child: Text('Name', style: titles))),
+                Expanded(
+                    flex: 2,
+                    child: SizedBox(
+                        height: 30, child: Text('Mail', style: titles))),
+                Expanded(
+                    child: SizedBox(
+                        height: 30, child: Text('Mobile', style: titles))),
+                Expanded(
+                    child: SizedBox(
+                        height: 30, child: Text('Status', style: titles))),
+                Expanded(
+                    child: SizedBox(
+                        height: 30, child: Text('Course', style: titles))),
+                Expanded(
+                    child: SizedBox(
+                        height: 30, child: Text('Order Value', style: titles))),
+                Expanded(
+                    child: SizedBox(
+                        height: 30, child: Text('Permission', style: titles))),
               ],
             ),
           ),
@@ -90,99 +104,108 @@ class _StudentListState extends State<StudentList> {
                           bool isActive = student[index].active;
                           return Padding(
                             padding: const EdgeInsets.only(
-                                right: 20, left: 20, bottom: 15),
+                                right: 20, left: 20, bottom: 10),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                SizedBox(
-                                  width: 150,
-                                  child: Row(
-                                    children: [
-                                      SizedBox(
-                                          width: 25,
-                                          child: Text('${index + 1}')),
-                                      const SizedBox(width: 5),
-                                      const CircleAvatar(
-                                        radius: 16,
+                                Expanded(
+                                    flex: 2,
+                                    child: SizedBox(
+                                      height: 30,
+                                      child: Row(
+                                        children: [
+                                          Text('${index + 1}'),
+                                          const SizedBox(width: 5),
+                                          const CircleAvatar(
+                                            radius: 16,
+                                          ),
+                                          const SizedBox(width: 10),
+                                          Text(student[index].name,
+                                              style: titles.copyWith(
+                                                  color: const Color.fromARGB(
+                                                      158, 33, 149, 243))),
+                                        ],
                                       ),
-                                      const SizedBox(width: 10),
-                                      Text(student[index].name,
-                                          style: titles.copyWith(
+                                    )),
+                                Expanded(
+                                    flex: 2,
+                                    child: SizedBox(
+                                        height: 30,
+                                        child: Text(student[index].email,
+                                            style: titlesvalue))),
+                                Expanded(
+                                    child: SizedBox(
+                                        height: 30,
+                                        child: Text(
+                                            "${student[index].mobNumber}",
+                                            style: titlesvalue))),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 30),
+                                    child: Container(
+                                      height: 20,
+                                      decoration: BoxDecoration(
+                                          color: isActive
+                                              ? Colors.green[200]
+                                              : Colors.red[200],
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          border: Border.all(
+                                              width: .5,
                                               color: const Color.fromARGB(
-                                                  158, 33, 149, 243))),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                    width: 100,
-                                    child: Text(student[index].mobNumber!,
-                                        style: titlesvalue)),
-                                SizedBox(
-                                    width: 120,
-                                    child: Text(student[index].email,
-                                        style: titlesvalue)),
-                                const SizedBox(width: 10),
-                                SizedBox(
-                                  width: 50,
-                                  child: Container(
-                                    height: 20,
-                                    width: 15,
-                                    decoration: BoxDecoration(
-                                        color: isActive
-                                            ? Colors.green[200]
-                                            : Colors.red[200],
-                                        borderRadius: BorderRadius.circular(8),
-                                        border: Border.all(
-                                            width: .5,
-                                            color: const Color.fromARGB(
-                                                255, 24, 128, 27))),
-                                    child: Center(
-                                      child: isActive
-                                          ? Text("Active",
-                                              style: titlesvalue.copyWith(
-                                                  fontSize: 8,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Colors.white))
-                                          : Text("DeActive",
-                                              style: titlesvalue.copyWith(
-                                                  fontSize: 8,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Colors.white)),
+                                                  255, 24, 128, 27))),
+                                      child: Center(
+                                        child: isActive
+                                            ? Text("Active",
+                                                style: titlesvalue.copyWith(
+                                                    fontSize: 8,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.white))
+                                            : Text("DeActive",
+                                                style: titlesvalue.copyWith(
+                                                    fontSize: 8,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.white)),
+                                      ),
                                     ),
                                   ),
                                 ),
-                                const SizedBox(width: 30),
-                                SizedBox(
-                                    width: 125,
-                                    child: Text('${student[index].lessonId!.length}',
-                                        style: titlesvalue,
-                                        textAlign: TextAlign.center)),
-                                SizedBox(
-                                    width: 60,
-                                    child: Text("\u{20B9}${student[index].orderValue}",
-                                        style: titlesvalue,
-                                        textAlign: TextAlign.right)),
-                                Container(
-                                    width: 100,
-                                    alignment: Alignment.centerRight,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          if (isActive) {
-                                            isActive = false;
-                                          } else {
-                                            isActive = true;
-                                          }
-                                        });
-                                      },
-                                      child: Icon(
-                                        Icons.person_add_disabled,
-                                        color: isActive
-                                            ? Colors.black
-                                            : const Color.fromARGB(
-                                                255, 255, 17, 0),
-                                      ),
-                                    ))
+                                Expanded(
+                                    child: SizedBox(
+                                        height: 30,
+                                        child: Text(
+                                          "${student[index].lessonId!.length}",
+                                          style: titlesvalue,
+                                        ))),
+                                Expanded(
+                                    child: SizedBox(
+                                        height: 30,
+                                        child: Text(
+                                            "${student[index].orderValue}",
+                                            style: titlesvalue))),
+                                Expanded(
+                                    child: SizedBox(
+                                        height: 30,
+                                        child: Container(
+                                            width: 100,
+                                            alignment: Alignment.centerRight,
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  if (isActive) {
+                                                    isActive = false;
+                                                  } else {
+                                                    isActive = true;
+                                                  }
+                                                });
+                                              },
+                                              child: Icon(
+                                                Icons.person_add_disabled,
+                                                color: isActive
+                                                    ? Colors.black
+                                                    : const Color.fromARGB(
+                                                        255, 255, 17, 0),
+                                              ),
+                                            ))))
                               ],
                             ),
                           );
